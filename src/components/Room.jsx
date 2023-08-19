@@ -1,10 +1,18 @@
 import { useGLTF, useTexture } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import { useRef } from "react";
 
 const Room = (props) => {
   const { nodes } = useGLTF("./room.glb");
   const { merged, praguePainting, base, earth } = nodes;
 
   const bakedTexture = useTexture("./baked.jpg");
+
+  const earthRef = useRef(null);
+
+  useFrame((_state, delta) => {
+    earthRef.current.rotation.y += delta;
+  });
   return (
     <group {...props}>
       <mesh geometry={merged.geometry}>
@@ -23,6 +31,7 @@ const Room = (props) => {
         material={base.children[1].material}
       />
       <mesh
+        ref={earthRef}
         position={earth.position}
         geometry={earth.geometry}
         material={earth.material}
