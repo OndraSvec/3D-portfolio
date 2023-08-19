@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { useGLTF } from "@react-three/drei";
 import { forwardRef } from "react";
 
