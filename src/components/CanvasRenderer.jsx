@@ -1,4 +1,5 @@
 import { Canvas } from "@react-three/fiber";
+import Experience from "./Experience";
 
 const CanvasRenderer = () => {
   return (
@@ -10,7 +11,9 @@ const CanvasRenderer = () => {
         far: 2000,
         position: [-4, 3, 5],
       }}
-    ></Canvas>
+    >
+      <Experience />
+    </Canvas>
   );
 };
 
