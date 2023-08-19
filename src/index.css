@@ -13,3 +13,13 @@ body,
 canvas {
   touch-action: none;
 }
+
+.laptopScreen iframe {
+  width: 1024px;
+  height: 670px;
+  border: none;
+  background: white;
+  user-select: none;
+  overflow: hidden;
+  overflow-y: scroll;
+}
