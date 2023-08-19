@@ -1,8 +1,17 @@
-import { useGLTF } from "@react-three/drei";
-import { forwardRef } from "react";
+import { Html, useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import { forwardRef, useRef } from "react";
 
 const Laptop = forwardRef((props, ref) => {
   const { nodes, materials } = useGLTF("./laptop.glb");
+  const screenGroupRef = useRef(null);
+
+  useFrame((_state, delta) => {
+    if (props.laptopZoomed) {
+      if (screenGroupRef.current.rotation.x >= Math.PI * 0.5)
+        screenGroupRef.current.rotation.x -= delta * 2;
+    }
+  });
   return (
     <group ref={ref} {...props} dispose={null}>
       <group position={[0.25, 0.465, 0.15]} scale={0.025}>
@@ -54,6 +63,7 @@ const Laptop = forwardRef((props, ref) => {
           />
         </group>
         <group
+          ref={screenGroupRef}
           position={[0.01, -0.47, -10.41]}
           rotation-x={Math.PI}
           scale={5.8}
@@ -66,6 +76,22 @@ const Laptop = forwardRef((props, ref) => {
             rotation-x={Math.PI * 0.5}
             position={[0, 0, -1.9]}
           />
+          <Html
+            occlude={"blending"}
+            transform
+            wrapperClass="laptopScreen"
+            distanceFactor={1.9}
+            position={[0, 0, -1.9]}
+            rotation-x={-1.56}
+          >
+            <iframe
+              src={
+                props.laptopZoomed
+                  ? "https://ondrasvecdev.vercel.app"
+                  : "https://portfolio-screen-saver.vercel.app/"
+              }
+            />
+          </Html>
           <mesh
             geometry={nodes.Circle002.geometry}
             material={nodes.Circle002.material}
