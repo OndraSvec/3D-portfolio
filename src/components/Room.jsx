@@ -4,7 +4,6 @@ import { useRef } from "react";
 
 const Room = (props) => {
   const { nodes } = useGLTF("./room.glb");
-  console.log(nodes);
 
   const {
     mergedRoom,
