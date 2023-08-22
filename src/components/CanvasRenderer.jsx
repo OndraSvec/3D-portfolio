@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
-import { useState } from "react";
+import Loader from "./Loader";
+import { Suspense, useState } from "react";
 
 const CanvasRenderer = () => {
   const [laptopZoomed, setLaptopZoomed] = useState(false);
@@ -25,7 +26,9 @@ const CanvasRenderer = () => {
         position: [-4, 3, 5],
       }}
     >
-      <Experience laptopZoomed={laptopZoomed} lastTap={lastTap} />
+      <Suspense fallback={<Loader />}>
+        <Experience laptopZoomed={laptopZoomed} lastTap={lastTap} />
+      </Suspense>
     </Canvas>
   );
 };
