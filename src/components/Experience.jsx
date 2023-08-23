@@ -1,16 +1,11 @@
-import {
-  Environment,
-  Float,
-  PresentationControls,
-  Text,
-} from "@react-three/drei";
+import { Environment, PresentationControls } from "@react-three/drei";
 import Laptop from "./Laptop";
 import Room from "./Room";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Vector3 } from "three";
 
-export default function Experience({ laptopZoomed, lastTap }) {
+export default function Experience() {
   const laptopRef = useRef(null);
 
   useFrame((state) => {
@@ -38,21 +33,12 @@ export default function Experience({ laptopZoomed, lastTap }) {
         config={{ mass: 2, tension: 400 }}
         snap={{ mass: 4, tension: 400 }}
       >
-        <Laptop laptopZoomed={laptopZoomed} lastTap={lastTap} ref={laptopRef} />
+        <Laptop laptopZoomed={laptopZoomed} ref={laptopRef} />
         <Room
           position={[-1, -0.7, 0]}
           scale={0.5}
           rotation-y={-Math.PI * 0.5}
         />
-        <Float floatIntensity={0.4} rotationIntensity={0.4}>
-          <Text
-            fontSize={0.375}
-            rotation={[0, -1.25, 0.1]}
-            position={[1, 2, 2]}
-            children={"Double click to\ntoggle zoom"}
-            textAlign="center"
-          />
-        </Float>
       </PresentationControls>
     </>
   );
