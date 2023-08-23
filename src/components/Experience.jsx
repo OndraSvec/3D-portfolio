@@ -1,19 +1,26 @@
 import { Environment, PresentationControls } from "@react-three/drei";
 import Laptop from "./Laptop";
 import Room from "./Room";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Vector3 } from "three";
+import { useControls } from "leva";
 
 export default function Experience() {
+  const [firstLoad, setFirstLoad] = useState(true);
   const laptopRef = useRef(null);
+
+  const { laptopZoomed } = useControls({
+    laptopZoomed: false,
+  });
 
   useFrame((state) => {
     if (laptopZoomed) {
       state.camera.position.lerp(new Vector3(0.3, 0.9, 0.8), 0.05);
       state.camera.lookAt(0.2, 0.8, 0);
       state.camera.updateProjectionMatrix();
-    } else if (lastTap && !laptopZoomed) {
+      setFirstLoad(false);
+    } else if (!firstLoad && !laptopZoomed) {
       state.camera.position.lerp(new Vector3(-4, 3, 5), 0.025);
       state.camera.lookAt(0, 0, 0);
       state.camera.updateProjectionMatrix();
