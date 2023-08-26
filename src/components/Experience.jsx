@@ -4,14 +4,15 @@ import Room from "./Room";
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Vector3 } from "three";
-import { useControls } from "leva";
+import { button, useControls } from "leva";
 
 export default function Experience() {
+  const [laptopZoomed, setLaptopZoomed] = useState(false);
   const [firstLoad, setFirstLoad] = useState(true);
   const laptopRef = useRef(null);
 
-  const { laptopZoomed } = useControls({
-    laptopZoomed: false,
+  useControls({
+    zoom: button(() => setLaptopZoomed((prevState) => !prevState)),
   });
 
   useFrame((state) => {
