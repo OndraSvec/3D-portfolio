@@ -15,14 +15,14 @@ export default function Experience() {
     zoom: button(() => setLaptopZoomed((prevState) => !prevState)),
   });
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (laptopZoomed) {
-      state.camera.position.lerp(new Vector3(0.3, 0.9, 0.8), 0.05);
+      state.camera.position.lerp(new Vector3(0.3, 0.9, 0.8), 2 * delta);
       state.camera.lookAt(0.2, 0.8, 0);
       state.camera.updateProjectionMatrix();
       setFirstLoad(false);
     } else if (!firstLoad && !laptopZoomed) {
-      state.camera.position.lerp(new Vector3(-4, 3, 5), 0.025);
+      state.camera.position.lerp(new Vector3(-4, 3, 5), 2 * delta);
       state.camera.lookAt(0, 0, 0);
       state.camera.updateProjectionMatrix();
     }
