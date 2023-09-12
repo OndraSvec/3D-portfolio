@@ -115,3 +115,5 @@ const Room = (props) => {
 };
 
 export default Room;
+
+useGLTF.preload("./room.glb");
